@@ -52,3 +52,4 @@ export default function TextForm(props) {
 TextForm.defaultProps = {
     title: 'Enter the Text details here'
 }
+ 

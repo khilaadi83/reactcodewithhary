@@ -3,7 +3,7 @@ import NewsItem from './NewsItem';
 import Spinner from './Spinner';
 import propTypes from 'prop-types';
 import InfiniteScroll from "react-infinite-scroll-component";
-import LoadingBar from 'react-top-loading-bar'
+
 export class News extends Component {
     static defaultProps = {
         pageSize: 5,
@@ -28,19 +28,20 @@ export class News extends Component {
     }
 
     async fetchNews(url) {
-
+        this.props.setProgress(0);
         this.setState({ loading: true });
         try {
+            this.props.setProgress(30);
             let response = await fetch(url);
-           
+            this.props.setProgress(50);
             let data = await response.json();
-         
+            this.props.setProgress(80);
             this.setState({ articles: data.articles, loading: false, totalArticles: data.totalResults });
             console.log(data.totalResults);
         } catch (e) {
             console.log('Something went wrong', e);
         }
-
+        this.props.setProgress(100);
     }
     async componentDidMount() {
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=903fd51d327f404cbea0807b9f09b425&pageSize=${this.props.pageSize}&category=${this.props.category}`;
@@ -82,11 +83,7 @@ export class News extends Component {
             <div className='container my-3'>
                 <h1>Top Headlines</h1>
                 {/* {this.state.loading ? <Spinner /> : ''} */}
-                <LoadingBar
-                    color='#f11946'
-                    progress={40}
-
-                />
+                
                 <div className="row my-3">
                     <div className="col-6 text-center container">
                         <button disabled={this.state.page <= 1} className="btn btn-warning" onClick={this.handlePrevious}>Previous</button>

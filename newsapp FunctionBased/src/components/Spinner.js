@@ -1,0 +1,13 @@
+import React, { Component } from 'react'
+import loading from '../loading.gif'
+export default function Spinner() {
+ 
+    return (
+      <div className=' text-center container'>
+        <img src={loading}  alt="loading" />
+      </div>
+    )
+ 
+}
+
+
