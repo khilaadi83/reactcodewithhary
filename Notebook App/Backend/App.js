@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-
+var cors = require('cors')
 const db = require('./config/keys').MongoURI;
 
 // Body parser middleware
+app.use(cors())
 app.use(express.json())
 
 

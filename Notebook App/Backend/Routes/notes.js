@@ -41,7 +41,7 @@ router.post('/addNote', loginAuth.verifyToken, [
         res.json({ msg: 'Note Added Successfully', note: savedNote });
     } catch (e) {
         res.status(500).json({ msg: 'Internal Server Error', error: e.message });
-    }
+    } 
 });
 
 // Route 3- To update Notes for logged in users
