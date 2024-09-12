@@ -1,11 +1,24 @@
-  import React, { useEffect } from 'react';
+  import React, { useEffect, useState } from 'react';
   import { Link, useLocation } from 'react-router-dom';
+  import { useNavigate } from 'react-router-dom';
   const Navbar = () => {
+    let navigate = useNavigate();
     let location = useLocation();
     useEffect(() => {
 
       console.log(location)
     }, [location])
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+
+    const handleLogout = () => {
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
+      navigate('/login');
+    };
+  
+    useEffect(() => {
+      setIsLoggedIn(!!localStorage.getItem("token"));
+    }, []);
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="#">INoteBook</a>
@@ -25,8 +38,21 @@
             </li>
           </ul>
           <ul className="navbar-nav">
+            {isLoggedIn ? (
+              <li className="nav-item">
+                <button onClick={handleLogout} className="nav-link btn btn-link">Logout</button>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">
+                  <button type="submit" className="btn btn-primary btn-block">
+                    Login
+                  </button>
+                </Link>
+              </li>
+            )}
             <li className="nav-item">
-              <Link className="nav-link" to="/login">Login</Link>
+              <Link className="nav-link" to="/signup">Signup</Link>
             </li>
           </ul>
         </div>

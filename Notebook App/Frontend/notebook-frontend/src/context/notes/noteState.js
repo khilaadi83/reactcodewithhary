@@ -49,7 +49,7 @@ const NoteState = (props) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY2ODRiMGQwOTk1ZjJhMTI4NmE1Njk1MiIsImZpcnN0bmFtZSI6IlNoaXZhbmkiLCJwYXNzd29yZCI6IiQyYSQxMCRYM3F1aGpmOXVQWXJ2OFRyU1hGU3VlaDlOZEN2NEFJc2tqZGtqSWZja0kvQjFySFR1elRTeSIsImVtYWlsIjoic2hpdmFuaUBnbWFpbC5jb20iLCJwaG9uZSI6ODg4ODg4OCwidGltZVN0YXBtIjoiMjAyNC0wNy0wM1QwMjowMDo0OC4zMDFaIiwiX192IjowfSwiaWF0IjoxNzIwMDA1MjUwfQ.I7UvnLNTEroUZmgWgQe3Khqqucqu7vJtrU2Y2Iv2uHM'
+        'authorization': localStorage.getItem('token')
       }
     });
     const json = await response.json()
@@ -65,7 +65,7 @@ const NoteState = (props) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY2ODRiMGQwOTk1ZjJhMTI4NmE1Njk1MiIsImZpcnN0bmFtZSI6IlNoaXZhbmkiLCJwYXNzd29yZCI6IiQyYSQxMCRYM3F1aGpmOXVQWXJ2OFRyU1hGU3VlaDlOZEN2NEFJc2tqZGtqSWZja0kvQjFySFR1elRTeSIsImVtYWlsIjoic2hpdmFuaUBnbWFpbC5jb20iLCJwaG9uZSI6ODg4ODg4OCwidGltZVN0YXBtIjoiMjAyNC0wNy0wM1QwMjowMDo0OC4zMDFaIiwiX192IjowfSwiaWF0IjoxNzIwMDA1MjUwfQ.I7UvnLNTEroUZmgWgQe3Khqqucqu7vJtrU2Y2Iv2uHM"
+          'authorization': localStorage.getItem('token')
         },
         body: JSON.stringify({ title, description })
       });
@@ -100,7 +100,7 @@ const NoteState = (props) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY2ODRiMGQwOTk1ZjJhMTI4NmE1Njk1MiIsImZpcnN0bmFtZSI6IlNoaXZhbmkiLCJwYXNzd29yZCI6IiQyYSQxMCRYM3F1aGpmOXVQWXJ2OFRyU1hGU3VlaDlOZEN2NEFJc2tqZGtqSWZja0kvQjFySFR1elRTeSIsImVtYWlsIjoic2hpdmFuaUBnbWFpbC5jb20iLCJwaG9uZSI6ODg4ODg4OCwidGltZVN0YXBtIjoiMjAyNC0wNy0wM1QwMjowMDo0OC4zMDFaIiwiX192IjowfSwiaWF0IjoxNzIwMDA1MjUwfQ.I7UvnLNTEroUZmgWgQe3Khqqucqu7vJtrU2Y2Iv2uHM"
+          'authorization': localStorage.getItem('token')
         }
       });
       const json = await response.json()
@@ -115,7 +115,7 @@ const NoteState = (props) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY2ODRiMGQwOTk1ZjJhMTI4NmE1Njk1MiIsImZpcnN0bmFtZSI6IlNoaXZhbmkiLCJwYXNzd29yZCI6IiQyYSQxMCRYM3F1aGpmOXVQWXJ2OFRyU1hGU3VlaDlOZEN2NEFJc2tqZGtqSWZja0kvQjFySFR1elRTeSIsImVtYWlsIjoic2hpdmFuaUBnbWFpbC5jb20iLCJwaG9uZSI6ODg4ODg4OCwidGltZVN0YXBtIjoiMjAyNC0wNy0wM1QwMjowMDo0OC4zMDFaIiwiX192IjowfSwiaWF0IjoxNzIwMDA1MjUwfQ.I7UvnLNTEroUZmgWgQe3Khqqucqu7vJtrU2Y2Iv2uHM"
+        'authorization': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description })
     });

@@ -27,7 +27,7 @@ mongoose.connect(db,
 
 // Availiable routes
 app.use('/', require('./Routes/index'));
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', require('./Routes/auth'));
 app.use('/api/notes', require('./Routes/notes'));
 
 

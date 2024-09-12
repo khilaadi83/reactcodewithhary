@@ -17,7 +17,7 @@ router.post('/createUser', [
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.array(), success : false });
     }
 
 
@@ -25,7 +25,7 @@ router.post('/createUser', [
     try {
         User.findOne({ email: email }).then(user => {
             if (user) {
-                return res.status(400).json({ msg: 'Email already exists' })
+                return res.status(400).json({ msg: 'Email already exists', success : false })
             }
         })
         const newuser = new User({
@@ -51,8 +51,8 @@ router.post('/createUser', [
                     newuser.password = hash;
                     // Save the user after hashing the password
                     newuser.save().then(user => {
-                        res.json({ mgs: 'done', hash: hash, token: jwtToken })
-                    }).catch(err => res.json({ "msg": 'Something went wrong', "error": err }));
+                        res.json({ mgs: 'User Created Successfully', hash: hash, token: jwtToken , success : true})
+                    }).catch(err => res.json({ "msg": 'Something went wrong', "error": err, success : false}));
                 }
             })
         })
@@ -85,16 +85,17 @@ router.post('/login', [
     try {
         User.findOne({ email: email }).then(user => {
             if (!user) {
-                return res.status(400).json({ msg: 'No such User Exist !!' })
+                success = false;
+                return res.status(400).json({ msg: 'No such User Exist !!', success: success })
             }
             bycrypt.compare(password, user.password).then(isMatch => {
                 if (isMatch) {
                     jwt.sign({ user: user }, 'secretykey', (err, token) => {
                         if (err) throw err;
-                        res.json({ msg: 'Login Successfull', token: token })
+                        res.json({ msg: 'Login Successfull', token: token, success: true })
                     })
                 } else {
-                    return res.status(400).json({ msg: 'Email or Password in incorrect !!' })
+                    return res.status(400).json({ msg: 'Email or Password in incorrect !!', success: false })
                 }
             })
         })
@@ -128,9 +129,27 @@ router.post('/getUser', loginAuth.verifyToken, (req, res) => {
             ERROR: "Some Error"
         })
     }
+    
 
 
 
 
 })
+// Route 4 for signout user
+// DELETE /api/auth/logout
+router.delete('/logout', (req, res) => {
+    if (req.session) {
+      req.session.destroy(err => {
+        if (err) {
+          res.status(400).send('Unable to log out')
+        } else {
+        localStorage.removeItem('token');
+          res.send('Logout successful')
+        }
+      });
+    } else {
+      res.end()
+    }
+  })
+
 module.exports = router;

@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import noteContext from '../context/notes/noteContext';
 import Modal from './Modal';
-
+import { useNavigate } from "react-router-dom";
 const NoteComponent = () => {
   const context = useContext(noteContext);
   const { notes, deleteNote, editNote, getNotes } = context;
-  const [selectedNote, setSelectedNote] = useState(null);  
-  
+  const [selectedNote, setSelectedNote] = useState(null);
+  let navigate = useNavigate();
+
   // Fetch notes when the component mounts
   useEffect(() => {
-    getNotes();
+    if (localStorage.getItem('token')) {
+      getNotes();
+    } else {
+      navigate('/login');
+    }
   }, []);
 
   // Handle click to edit the note
@@ -33,13 +38,13 @@ const NoteComponent = () => {
               <div className="card-body">
                 <h5 className="card-title">{note.title}</h5>
                 <p className="card-text">{note.description}</p>
-                <i className="fa-regular fa-pen-to-square" 
-                   style={{ color: '#4CAF50' }}  
-                   onClick={() => handleEditClick(note)}>
-                </i> 
-                <i className="fa-solid fa-trash" 
-                   style={{ color: '#F44336' }} 
-                   onClick={() => deleteNote(note._id)}>
+                <i className="fa-regular fa-pen-to-square"
+                  style={{ color: '#4CAF50' }}
+                  onClick={() => handleEditClick(note)}>
+                </i>
+                <i className="fa-solid fa-trash"
+                  style={{ color: '#F44336' }}
+                  onClick={() => deleteNote(note._id)}>
                 </i>
               </div>
             </div>
