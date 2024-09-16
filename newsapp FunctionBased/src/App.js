@@ -8,7 +8,7 @@ import LoadingBar from 'react-top-loading-bar';
 
 export default function App() {
   const [progress, setProgress] = useState(10);
-
+  
   return (
     <Router>
       <div>
